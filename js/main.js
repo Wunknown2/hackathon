@@ -1,39 +1,37 @@
-const API = "http://localhost:8000/clothes"
-const addBtn = document.querySelector("#btnShow");
-const none = document.querySelector(".none");
-const cont__2 = document.querySelector(".cont__2");
-none.addEventListener("click", () => {
-  editModal.style.display = "none";
-});
-addBtn.addEventListener("click", () => {
-  cont__2.classList.toggle("active");
-});
+const API = "http://localhost:8000/phones";
 let inpName = document.querySelector("#inpName");
+let inpAuthor = document.querySelector("#inpAuthor");
 let inpImg = document.querySelector("#inpImg");
 let inpPrice = document.querySelector("#inpPrice");
 let btnAdd = document.querySelector("#btnAdd");
-let contt = document.querySelector("#contt");
-let inpSearch1 = document.querySelector("#inpSearch");
+let sectionBooks = document.querySelector("#sectionBooks");
+let btnOpenForm = document.querySelector("#collapseThree");
+let inpSearch = document.querySelector("#inpSearch");
 let searchValue = "";
 let countPage = 1;
 let currentPage = 1;
 let prevBtn = document.querySelector("#prevBtn");
 let nextBtn = document.querySelector("#nextBtn");
-
 btnAdd.addEventListener("click", () => {
-  if (!inpName.value.trim() || !inpImg.value.trim() || !inpPrice.value.trim()) {
+  if (
+    !inpName.value.trim() ||
+    !inpAuthor.value.trim() ||
+    !inpImg.value.trim() ||
+    !inpPrice.value.trim()
+  ) {
     alert("Заполните все поля");
     return;
   }
   let newBook = {
     bookName: inpName.value,
+    bookAuthor: inpAuthor.value,
     bookImg: inpImg.value,
     bookPrice: inpPrice.value,
   };
   createBook(newBook);
+  readBooks();
 });
-
-// ! ===================== CREATE ======================
+//! ===================================CREATE=================================
 function createBook(book) {
   fetch(API, {
     method: "POST",
@@ -41,37 +39,39 @@ function createBook(book) {
       "Content-type": "application/json; charset=utf-8",
     },
     body: JSON.stringify(book),
-  }).then((res) => readTask());
+  });
+  btnOpenForm.classList.toggle("show");
+
   inpName.value = "";
+  inpAuthor.value = "";
   inpImg.value = "";
   inpPrice.value = "";
 }
-
-// ! ===================== READ ======================
-async function readBooks(test = currentPage) {
+//! ==============================READ=============================
+async function readBooks() {
   const res = await fetch(
     `${API}?q=${searchValue}&_page=${currentPage}&_limit=3`
   );
   const data = await res.json();
-  contt.innerHTML = "";
+  sectionBooks.innerHTML = "";
   data.forEach((elem) => {
-    contt.innerHTML += `
-    <div class="card">
-    <img src="${elem.bookImg}" alt="" />
+    sectionBooks.innerHTML += `
+    <div class="card m-4 cardBook" style="width: 15rem">
+    <img style="height:280px" src="${elem.bookImg}" alt="${elem.bookName}" />
     <div class="card-body">
-        <h5 class="card-title">${elem.bookName}</h5>
-        <div>${elem.bookPrice}</div>
-        <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
-        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
+      <h5 class="card-title">${elem.bookName}</h5>
+      <p class="card-text">${elem.bookAuthor}</p>
+      <span>${elem.bookPrice}</span>
+      <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
+      <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
     </div>
-    </div>
+  </div>
     `;
-    pageFunc();
   });
+  pageFunc();
 }
 readBooks();
-
-// ! ==================== DELETE =======================
+// ! ==========================DELETE===============================
 document.addEventListener("click", (e) => {
   let del_id = e.target.id;
   let del_class = [...e.target.classList];
@@ -81,71 +81,59 @@ document.addEventListener("click", (e) => {
     }).then(() => readBooks());
   }
 });
-
-// ! ==================== EDIT =======================
-let inpEdit = document.querySelector(".inpEdit");
-let inpEdit1 = document.querySelector(".inpEdit1");
-let inpEdit2 = document.querySelector(".inpEdit2");
-let btnEditSave = document.querySelector(".saveEdit");
-let editModal = document.querySelector(".editModal");
-
+// ! ==========================EDIT===============================
+let editInpName = document.querySelector("#editInpName");
+let editInpAuthor = document.querySelector("#editInpAuthor");
+let editInpImg = document.querySelector("#editInpImg");
+let editInpPrice = document.querySelector("#editInpPrice");
+let editBtnSave = document.querySelector("#editBtnSave");
 document.addEventListener("click", (e) => {
   let edit_class = [...e.target.classList];
-  if (edit_class.includes("btnEdit", "btnEdit1", "btnEdit2", "btnEdit3")) {
-    editModal.style.display = "block";
+  if (edit_class.includes("btnEdit")) {
     let id = e.target.id;
     fetch(`${API}/${id}`)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        inpEdit.value = data.bookImg;
-        inpEdit1.value = data.bookName;
-        inpEdit2.value = data.bookPrice;
-        btnEditSave.setAttribute("id", data.id);
+        editInpName.value = data.bookName;
+        editInpAuthor.value = data.bookAuthor;
+        editInpImg.value = data.bookImg;
+        editInpPrice.value = data.bookPrice;
+        editBtnSave.setAttribute("id", data.id);
       });
   }
 });
-
-btnEditSave.addEventListener("click", () => {
-  let editTask = {
-    bookImg: inpEdit.value,
-    bookName: inpEdit1.value,
-    bookPrice: inpEdit2.value,
+editBtnSave.addEventListener("click", () => {
+  let editedBook = {
+    bookName: editInpName.value,
+    bookAuthor: editInpAuthor.value,
+    bookImg: editInpImg.value,
+    bookPrice: editInpPrice.value,
   };
-  editedTask(editTask, btnEditSave.id);
-  editModal.style.display = "none";
+  editBook(editedBook, editBtnSave.id);
 });
 
-function editedTask(editTask, id) {
+function editBook(editBook, id) {
   fetch(`${API}/${id}`, {
     method: "PATCH",
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
+      "Content-type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify(editTask),
-  }).then(() => readTask());
+    body: JSON.stringify(editBook),
+  }).then(() => readBooks());
 }
-
-// ! ====================== SEARCH =======================
-let test = currentPage;
-inpSearch1.addEventListener("input", (e) => {
+// ! ==========================SEARCH===============================
+inpSearch.addEventListener("input", (e) => {
   searchValue = e.target.value.trim();
-});
-inpSearch1.addEventListener("input", () => {
-  if (!searchValue) {
-    readBooks(test);
-    currentPage = 1;
-    console.log(currentPage);
-  } else {
-    let test = currentPage;
-    readBooks(test);
+  readBooks();
+  if (!currentPage == currentPage) {
+    return;
   }
 });
-
-// ! ==================== PAGINATION ====================
+// ! ==========================PAGINATION===============================
 function pageFunc() {
-  fetch(`${API}?q=${searchValue}`)
+  fetch(`${API}?q=5${searchValue}`)
     .then((res) => {
       return res.json();
     })
