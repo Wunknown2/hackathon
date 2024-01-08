@@ -54,6 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
           password, // Здесь используется введенный пользователем пароль
           userId: userData.id,
         };
+        document
+          .getElementById("registrationForm")
+          .addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              document.getElementById("registerUser").click();
+            }
+          });
 
         // Отправляем данные на сервер для добавления учетной записи
         fetch("http://localhost:8000/login", {
@@ -117,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Отправляем данные на сервер для аутентификации
     fetch("http://localhost:8000/login", {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -216,8 +224,6 @@ async function readPhones() {
             <span>${elem.phonePrice}</span>
             <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
-            <button class="btn btn-outline-info btnDetails" id="${elem.id}">Детали</button>
-            <button class="btn btn-outline-success btnAddToCart" id="${elem.id}">Добавить в корзину</button>
         </div>
     </div>
     `;
@@ -278,59 +284,6 @@ function editPhone(editPhone, id) {
   }).then(() => readPhones());
 }
 
-// ! ==================== Детальный обзор ======================
-
-document.addEventListener("click", (e) => {
-  let details_class = [...e.target.classList];
-  if (details_class.includes("btnDetails")) {
-    let id = e.target.id;
-    fetch(`${API}/${id}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        // Здесь вы можете заполнить модальное окно детальной информацией
-        // Пример:
-        document.getElementById("myModal").style.display = "block";
-        document.querySelector("#myModal h2").innerText = data.phoneBrand;
-
-        // Создаем элемент изображения и устанавливаем его атрибут src
-        let imgElement = document.createElement("img");
-        imgElement.src = data.phoneImg;
-        imgElement.style.maxWidth = "200px";
-        imgElement.style.height = "auto";
-
-        // Получаем элемент, куда добавим изображение, и очищаем его
-        let imgContainer = document.getElementById("myModalImageContainer");
-        imgContainer.innerHTML = "";
-
-        // Добавляем изображение в контейнер внутри модального окна
-        imgContainer.appendChild(imgElement);
-
-        // Остальные данные (модель и цена)
-        document.querySelector(
-          "#myModal p"
-        ).innerText = `Модель: ${data.phoneModel}\nЦена: ${data.phonePrice}`;
-      });
-  }
-});
-
-function openModal() {
-  document.getElementById("myModal").style.display = "block";
-}
-
-// Закрывает модальное окно
-function closeModal() {
-  document.getElementById("myModal").style.display = "none";
-}
-
-// Закрывает модальное окно, если пользователь кликнул вне его
-window.onclick = function (event) {
-  var modal = document.getElementById("myModal");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-};
 // ! ==========================SEARCH===============================
 inpSearch.addEventListener("input", (e) => {
   searchValue = e.target.value.trim();

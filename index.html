@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Shop</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./img/icon.jpeg" type="image/x-icon" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
@@ -48,11 +49,13 @@
             <button
               class="btn btn-outline-light me-2 btn-registration"
               type="button"
+              id="registerUser"
               data-bs-toggle="modal"
               data-bs-target="#registrationModal"
             >
               Регистрация
             </button>
+            <div id="registrationContainer"></div>
             <button
               class="btn btn-outline-light me-2 btn-login"
               type="button"
@@ -61,16 +64,7 @@
             >
               Вход
             </button>
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"
-                  >На главную страницу</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
-              </li>
-            </ul>
+
             <form class="d-flex mt-3" role="search">
               <input
                 class="form-control me-2 flex-grow-1"
@@ -85,7 +79,7 @@
         </div>
       </div>
     </nav>
-    <div id="registrationContainer"></div>
+
     <!-- NAVBAR FINISH -->
     <!-- ADD PANEL START -->
     <div class="accordion" id="accordionExample">
@@ -233,38 +227,181 @@
         </ul>
       </div>
       <!-- PAGINATION FINISH-->
+      <!-- Регистрация Модальное окно -->
+      <div
+        class="modal fade"
+        id="registrationModal"
+        tabindex="-1"
+        aria-labelledby="registrationModalLabel"
+        aria-hidden="true"
+        style="
+          top: 70%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50%;
+          max-width: 600px;
+        "
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="registrationModalLabel">
+                Регистрация
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="registrationForm">
+                <div class="mb-3">
+                  <label for="registrationName" class="form-label">Имя</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="registrationName"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="registrationDOB" class="form-label"
+                    >Дата рождения</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="registrationDOB"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="registrationEmail" class="form-label"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="registrationEmail"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="registrationPassword" class="form-label"
+                    >Пароль</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="registrationPassword"
+                    required
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#registrationModal"
+                >
+                  Регистрация
+                </button>
+                <button
+                  id="logoutButton"
+                  style="display: none"
+                  class="btn btn-danger"
+                >
+                  Выход
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Регистрация Модальное окно закончено-->
+      <!-- ВХОД МОДАЛКА -->
+      <!-- Модальное окно для входа -->
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+        style="
+          top: 70%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50%;
+          max-width: 600px;
+        "
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="loginEmail"
+                    placeholder="Введите ваш email"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Пароль</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="loginPassword"
+                    placeholder="Введите ваш пароль"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="loginUser"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                >
+                  Вход
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ВХОД МОДАЛКА ФИНИШ-->
       <!-- FOOTER START-->
       <footer id="foot">
         <div class="footer">
           <div class="footer-item">
             <div class="footer-item-title" id="qw">
-              <h3>About us</h3>
+              <h3>О нас</h3>
               <p>
-                When using the SKYBOX Services You may transmit, store and or
-                share certain data, information, files, etc. (altogether
-                “Service Data”). For the avoidance of doubt, You retain full
-                ownership of Your Service Data. SKYBOX doea that You or any
-                other uss while using the Service. SKYBOX agrees that these
-                Terms do not grant
+                К сожалению мы не смогли ничего дельного придумать, но если
+                хотите можете скинуть деньги на МБАНК, номер телефона будет
+                справа
               </p>
             </div>
-            <div class="footer-item-title" id="qw">
-              <h3>Featured links</h3>
-              <div>Pricing</div>
-              <div>Contact</div>
-              <div>DMCA</div>
-              <div>Refund Policy</div>
-              <div>Privacy Policy</div>
-              <div>Terms of Service</div>
-            </div>
             <div class="footer-item-titlee">
-              <h3>Contact us</h3>
-              <div>Our office:</div>
-              <div>Digitalgoals LTD</div>
-              <div>Lapathou, 6, Strovolos 2027,</div>
-              <div>Refund Policy</div>
-              <div>Phone: +37 06 225 29 36</div>
-              <div>Email: mail@example.com</div>
+              <h3>Контактные данные</h3>
+              <div>Наш офис:</div>
+              <div>Makers</div>
+              <div>г.Бишкек, ул.Табышалиева 29</div>
+              <div>Номер мбанк:</div>
+              <div>+996500227722</div>
+              <div>Email: wunknown2@gmail.com</div>
             </div>
           </div>
           <hr />
@@ -281,156 +418,5 @@
       ></script>
       <script src="./js/main.js"></script>
     </div>
-    <!-- Регистрация Модальное окно -->
-    <div
-      class="modal fade"
-      id="registrationModal"
-      tabindex="-1"
-      aria-labelledby="registrationModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="registrationModalLabel">Регистрация</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="registrationForm">
-              <div class="mb-3">
-                <label for="registrationName" class="form-label">Имя</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="registrationName"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="registrationDOB" class="form-label"
-                  >Дата рождения</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  id="registrationDOB"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="registrationEmail" class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="registrationEmail"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="registrationPassword" class="form-label"
-                  >Пароль</label
-                >
-                <input
-                  type="password"
-                  class="form-control"
-                  id="registrationPassword"
-                  required
-                />
-              </div>
-              <button
-                type="button"
-                class="btn btn-success"
-                data-bs-toggle="modal"
-                data-bs-target="#registrationModal"
-              >
-                Регистрация
-              </button>
-              <button
-                id="logoutButton"
-                style="display: none"
-                class="btn btn-danger"
-              >
-                Выход
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Регистрация Модальное окно закончено-->
-    <!-- ВХОД МОДАЛКА -->
-    <!-- Модальное окно для входа -->
-    <div
-      class="modal fade"
-      id="loginModal"
-      tabindex="-1"
-      aria-labelledby="loginModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Вход</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="loginForm">
-              <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="loginEmail"
-                  placeholder="Введите ваш email"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="loginPassword" class="form-label">Пароль</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="loginPassword"
-                  placeholder="Введите ваш пароль"
-                />
-              </div>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#loginModal"
-              >
-                Вход
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ВХОД МОДАЛКА ФИНИШ-->
-    <!-- Детальный обзор  START -->
-
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Детальный обзор товара</h2>
-        <!-- Контейнер для изображения -->
-        <div id="myModalImageContainer"></div>
-        <p>
-          Автор: <span id="myModalAuthor"></span><br />Цена:
-          <span id="myModalPrice"></span>
-        </p>
-      </div>
-    </div>
-    <!-- Детальный обзор  FINISH-->
   </body>
 </html>

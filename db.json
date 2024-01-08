@@ -1,26 +1,39 @@
 {
   "phones": [
     {
-      "phoneBrand": "Samsung",
-      "phoneModel": "Galaxy s23",
-      "phoneImg": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/519nePwnpIL._AC_UF1000,1000_QL80_.jpg",
-      "phonePrice": "35000 сом",
+      "phoneBrand": "12",
+      "phoneModel": "12",
+      "phoneImg": "12",
+      "phonePrice": "12",
       "id": 1
+    },
+    {
+      "phoneBrand": "12",
+      "phoneModel": "12",
+      "phoneImg": "12",
+      "phonePrice": "12",
+      "id": 2
     }
   ],
   "users": [
     {
-      "name": "Шабдан",
-      "dob": "1999-10-05",
+      "name": "Wabdan",
+      "dob": "1999-10-10",
       "email": "wunknown2@gmail.com",
-      "id": 1
+      "id": 3
+    },
+    {
+      "name": "",
+      "dob": "",
+      "email": "",
+      "id": 4
     }
   ],
   "login": [
     {
-      "email": "wunknown2@gmail.com",
-      "password": "Wabdan1108",
-      "userId": 1,
+      "email": "",
+      "password": "",
+      "userId": 4,
       "id": 1
     }
   ]
