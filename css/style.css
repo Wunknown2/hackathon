@@ -1,9 +1,108 @@
 .accordion-header {
-    margin-top: 55px;
+  margin-top: 55px;
+}
+.cardBook:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
+  box-shadow: 0px 0px 23px 0px rgba(34, 60, 80, 0.4);
+}
+/* Reset some default styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #007efd;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #343a40;
+}
+
+.navbar-brand {
+  color: #0051ff;
+  font-weight: bold;
+}
+
+.navbar-nav a {
+  color: #ffffff !important;
+}
+.navbar-nav a:hover {
+  background-color: #555; /* Цвет подсветки */
+  color: #fff; /* Цвет текста при подсветке */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета подсветки */
+}
+/* Main section styles */
+#sectionBooks {
+  margin-top: 20px;
+}
+
+/* Accordion styles */
+.accordion-button {
+  background-color: #0f8fff;
+  color: #ffffff;
+}
+
+/* Form styles */
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn-outline-success {
+  color: #06ff40;
+  border-color: #28a745;
+}
+
+/* Modal styles */
+.modal-header {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.modal-body input {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  color: #007bff;
+}
+/* Стили для поля ввода поиска */
+#inpSearch {
+  height: 38px; /* Выберите желаемую высоту */
+}
+
+/* Стили для кнопки поиска */
+.btn-success {
+  height: 38px; /* Выберите желаемую высоту */
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  .cardBook:hover {
-    transform: scale(1.05);
-    transition: 0.5s;
-    box-shadow: 0px 0px 23px 0px rgba(34, 60, 80, 0.4);
+
+  .form-control {
+    width: 100%;
   }
-  
+}
