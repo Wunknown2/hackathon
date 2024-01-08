@@ -1,7 +1,7 @@
 .accordion-header {
   margin-top: 55px;
 }
-.cardBook:hover {
+.cardPhone:hover {
   transform: scale(1.05);
   transition: 0.5s;
   box-shadow: 0px 0px 23px 0px rgba(34, 60, 80, 0.4);
@@ -21,6 +21,7 @@ body {
 
 .container {
   max-width: 1200px;
+  height: 450px;
 }
 
 /* Navbar styles */
@@ -38,7 +39,7 @@ body {
 }
 
 /* Main section styles */
-#sectionBooks {
+#sectionPhones {
   margin-top: 20px;
 }
 
@@ -82,7 +83,7 @@ body {
   color: #007bff;
 }
 .footer {
-    background: #000;
+  background: #000;
   width: 100%;
   padding-bottom: 60px;
 }

@@ -1,18 +1,11 @@
 {
   "phones": [
     {
-      "bookName": "1234",
-      "bookAuthor": "2345",
-      "bookImg": "345",
-      "bookPrice": "345544",
+      "phoneBrand": "Samsung",
+      "phoneModel": "Galaxy s23",
+      "phoneImg": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/519nePwnpIL._AC_UF1000,1000_QL80_.jpg",
+      "phonePrice": "35000 сом",
       "id": 1
-    },
-    {
-      "bookName": "1234",
-      "bookAuthor": "2345",
-      "bookImg": "234",
-      "bookPrice": "234",
-      "id": 2
     }
   ]
 }

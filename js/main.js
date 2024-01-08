@@ -1,10 +1,10 @@
 const API = "http://localhost:8000/phones";
-let inpName = document.querySelector("#inpName");
-let inpAuthor = document.querySelector("#inpAuthor");
+let inpBrand = document.querySelector("#inpBrand");
+let inpModel = document.querySelector("#inpModel");
 let inpImg = document.querySelector("#inpImg");
 let inpPrice = document.querySelector("#inpPrice");
 let btnAdd = document.querySelector("#btnAdd");
-let sectionBooks = document.querySelector("#sectionBooks");
+let sectionPhones = document.querySelector("#sectionPhones");
 let btnOpenForm = document.querySelector("#collapseThree");
 let inpSearch = document.querySelector("#inpSearch");
 let searchValue = "";
@@ -14,63 +14,63 @@ let prevBtn = document.querySelector("#prevBtn");
 let nextBtn = document.querySelector("#nextBtn");
 btnAdd.addEventListener("click", () => {
   if (
-    !inpName.value.trim() ||
-    !inpAuthor.value.trim() ||
+    !inpBrand.value.trim() ||
+    !inpModel.value.trim() ||
     !inpImg.value.trim() ||
     !inpPrice.value.trim()
   ) {
     alert("Заполните все поля");
     return;
   }
-  let newBook = {
-    bookName: inpName.value,
-    bookAuthor: inpAuthor.value,
-    bookImg: inpImg.value,
-    bookPrice: inpPrice.value,
+  let newPhone = {
+    phoneBrand: inpBrand.value,
+    phoneModel: inpModel.value,
+    phoneImg: inpImg.value,
+    phonePrice: inpPrice.value,
   };
-  createBook(newBook);
-  readBooks();
+  createPhone(newPhone);
+  readPhones();
 });
 //! ===================================CREATE=================================
-function createBook(book) {
+function createPhone(phone) {
   fetch(API, {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify(book),
+    body: JSON.stringify(phone),
   });
   btnOpenForm.classList.toggle("show");
 
-  inpName.value = "";
-  inpAuthor.value = "";
+  inpBrand.value = "";
+  inpModel.value = "";
   inpImg.value = "";
   inpPrice.value = "";
 }
 //! ==============================READ=============================
-async function readBooks() {
+async function readPhones() {
   const res = await fetch(
     `${API}?q=${searchValue}&_page=${currentPage}&_limit=3`
   );
   const data = await res.json();
-  sectionBooks.innerHTML = "";
+  sectionPhones.innerHTML = "";
   data.forEach((elem) => {
-    sectionBooks.innerHTML += `
-    <div class="card m-4 cardBook" style="width: 15rem">
-    <img style="height:280px" src="${elem.bookImg}" alt="${elem.bookName}" />
-    <div class="card-body">
-      <h5 class="card-title">${elem.bookName}</h5>
-      <p class="card-text">${elem.bookAuthor}</p>
-      <span>${elem.bookPrice}</span>
-      <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
-      <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
+    sectionPhones.innerHTML += `
+    <div class="card m-4 cardPhone" style="width: 15rem">
+        <img style="height:280px" src="${elem.phoneImg}" alt="${elem.phoneBrand}" />
+        <div class="card-body">
+            <h5 class="card-title">${elem.phoneBrand}</h5>
+            <p class="card-text">${elem.phoneModel}</p>
+            <span>${elem.phonePrice}</span>
+            <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
+        </div>
     </div>
-  </div>
     `;
   });
   pageFunc();
 }
-readBooks();
+readPhones();
 // ! ==========================DELETE===============================
 document.addEventListener("click", (e) => {
   let del_id = e.target.id;
@@ -78,12 +78,12 @@ document.addEventListener("click", (e) => {
   if (del_class.includes("btnDelete")) {
     fetch(`${API}/${del_id}`, {
       method: "DELETE",
-    }).then(() => readBooks());
+    }).then(() => readPhones());
   }
 });
 // ! ==========================EDIT===============================
-let editInpName = document.querySelector("#editInpName");
-let editInpAuthor = document.querySelector("#editInpAuthor");
+let editInpBrand = document.querySelector("#editInpBrand");
+let editInpModel = document.querySelector("#editInpModel");
 let editInpImg = document.querySelector("#editInpImg");
 let editInpPrice = document.querySelector("#editInpPrice");
 let editBtnSave = document.querySelector("#editBtnSave");
@@ -96,37 +96,37 @@ document.addEventListener("click", (e) => {
         return res.json();
       })
       .then((data) => {
-        editInpName.value = data.bookName;
-        editInpAuthor.value = data.bookAuthor;
-        editInpImg.value = data.bookImg;
-        editInpPrice.value = data.bookPrice;
+        editInpBrand.value = data.phoneBrand;
+        editInpModel.value = data.phoneModel;
+        editInpImg.value = data.phoneImg;
+        editInpPrice.value = data.phonePrice;
         editBtnSave.setAttribute("id", data.id);
       });
   }
 });
 editBtnSave.addEventListener("click", () => {
-  let editedBook = {
-    bookName: editInpName.value,
-    bookAuthor: editInpAuthor.value,
-    bookImg: editInpImg.value,
-    bookPrice: editInpPrice.value,
+  let editedPhone = {
+    phoneBrand: editInpBrand.value,
+    phoneModel: editInpModel.value,
+    phoneImg: editInpImg.value,
+    phonePrice: editInpPrice.value,
   };
-  editBook(editedBook, editBtnSave.id);
+  editPhone(editedPhone, editBtnSave.id);
 });
 
-function editBook(editBook, id) {
+function editPhone(editPhone, id) {
   fetch(`${API}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-type": "application/json; charset=utf-8",
     },
-    body: JSON.stringify(editBook),
-  }).then(() => readBooks());
+    body: JSON.stringify(editPhone),
+  }).then(() => readPhones());
 }
 // ! ==========================SEARCH===============================
 inpSearch.addEventListener("input", (e) => {
   searchValue = e.target.value.trim();
-  readBooks();
+  readPhones();
   if (!currentPage == currentPage) {
     return;
   }
@@ -144,10 +144,10 @@ function pageFunc() {
 prevBtn.addEventListener("click", () => {
   if (currentPage <= 1) return;
   currentPage--;
-  readBooks();
+  readPhones();
 });
 nextBtn.addEventListener("click", () => {
   if (currentPage >= countPage) return;
   currentPage++;
-  readBooks();
+  readPhones();
 });
