@@ -7,5 +7,13 @@
       "phonePrice": "35000 сом",
       "id": 1
     }
+  ],
+  "users": [
+    {
+      "name": "Шабдан",
+      "dob": "1999-10-06",
+      "email": "wunknown2@gmail.com",
+      "id": 1
+    }
   ]
 }

@@ -28,12 +28,23 @@ body {
 .navbar {
   background-color: #343a40;
 }
+#inpSearch {
+  height: 38px; /* Выберите желаемую высоту */
+}
 
+/* Стили для кнопки поиска */
+.btn-success {
+  height: 38px; /* Выберите желаемую высоту */
+}
 .navbar-brand {
   color: #0051ff;
   font-weight: bold;
 }
-
+.navbar-nav a:hover {
+  background-color: #555; /* Цвет подсветки */
+  color: #fff; /* Цвет текста при подсветке */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета подсветки */
+}
 .navbar-nav a {
   color: #ffffff !important;
 }

@@ -151,3 +151,60 @@ nextBtn.addEventListener("click", () => {
   currentPage++;
   readPhones();
 });
+/* Регистрация */
+document.addEventListener("DOMContentLoaded", () => {
+  const registerUserButton = document.getElementById("registerUser");
+  const registrationContainer = document.getElementById(
+    "registrationContainer"
+  );
+  const registrationModal = new bootstrap.Modal(
+    document.getElementById("registrationModal")
+  );
+
+  registerUserButton.addEventListener("click", () => {
+    const name = document.getElementById("registrationName").value;
+    const dob = document.getElementById("registrationDOB").value;
+    const email = document.getElementById("registrationEmail").value;
+
+    const newUser = {
+      name,
+      dob,
+      email,
+    };
+
+    // Отправляем данные на сервер
+    fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Обработка успешного ответа от сервера
+        console.log("Пользователь зарегистрирован:", data);
+
+        // Закрыть модальное окно после успешной регистрации
+        registrationModal.hide();
+
+        // Отобразить имя пользователя
+        showUserName(data.name);
+      })
+      .catch((error) => {
+        // Обработка ошибок при отправке данных на сервер
+        console.error("Ошибка регистрации:", error);
+      });
+  });
+
+  // Обработка события hidden.bs.modal для закрытия окна
+  registrationModal._element.addEventListener("hidden.bs.modal", () => {
+    // Сбросить содержимое registrationContainer при закрытии окна
+    registrationContainer.innerHTML = "";
+  });
+
+  // Функция для отображения имени пользователя
+  function showUserName(userName) {
+    registrationContainer.innerHTML = `<p>Привет, ${userName}!</p>`;
+  }
+});
