@@ -46,12 +46,20 @@
           </div>
           <div class="offcanvas-body">
             <button
-              class="btn btn-outline-light me-2"
+              class="btn btn-outline-light me-2 btn-registration"
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#registrationModal"
             >
               Регистрация
+            </button>
+            <button
+              class="btn btn-outline-light me-2 btn-login"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              Вход
             </button>
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
@@ -212,6 +220,7 @@
         </div>
       </div>
       <!-- EDIT MODAL FINISH -->
+
       <!-- PAGINATION START-->
       <div aria-label="Page navigation example">
         <ul class="pagination">
@@ -299,14 +308,19 @@
                   type="text"
                   class="form-control"
                   id="registrationName"
-                  placeholder="Введите ваше имя"
+                  required
                 />
               </div>
               <div class="mb-3">
                 <label for="registrationDOB" class="form-label"
-                  >Дата Рождения</label
+                  >Дата рождения</label
                 >
-                <input type="date" class="form-control" id="registrationDOB" />
+                <input
+                  type="date"
+                  class="form-control"
+                  id="registrationDOB"
+                  required
+                />
               </div>
               <div class="mb-3">
                 <label for="registrationEmail" class="form-label">Email</label>
@@ -314,16 +328,109 @@
                   type="email"
                   class="form-control"
                   id="registrationEmail"
-                  placeholder="Введите ваш email"
+                  required
                 />
               </div>
-              <button type="button" class="btn btn-primary" id="registerUser">
-                Зарегистрироваться
+              <div class="mb-3">
+                <label for="registrationPassword" class="form-label"
+                  >Пароль</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="registrationPassword"
+                  required
+                />
+              </div>
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#registrationModal"
+              >
+                Регистрация
+              </button>
+              <button
+                id="logoutButton"
+                style="display: none"
+                class="btn btn-danger"
+              >
+                Выход
               </button>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <!-- Регистрация Модальное окно закончено-->
+    <!-- ВХОД МОДАЛКА -->
+    <!-- Модальное окно для входа -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="loginEmail"
+                  placeholder="Введите ваш email"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="loginPassword" class="form-label">Пароль</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="loginPassword"
+                  placeholder="Введите ваш пароль"
+                />
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+              >
+                Вход
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ВХОД МОДАЛКА ФИНИШ-->
+    <!-- Детальный обзор  START -->
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Детальный обзор товара</h2>
+        <!-- Контейнер для изображения -->
+        <div id="myModalImageContainer"></div>
+        <p>
+          Автор: <span id="myModalAuthor"></span><br />Цена:
+          <span id="myModalPrice"></span>
+        </p>
+      </div>
+    </div>
+    <!-- Детальный обзор  FINISH-->
   </body>
 </html>

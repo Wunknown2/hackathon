@@ -12,6 +12,158 @@ let countPage = 1;
 let currentPage = 1;
 let prevBtn = document.querySelector("#prevBtn");
 let nextBtn = document.querySelector("#nextBtn");
+
+/* Регистрация */
+document.addEventListener("DOMContentLoaded", () => {
+  const registerUserButton = document.getElementById("registerUser");
+  const registrationContainer = document.getElementById(
+    "registrationContainer"
+  );
+  const registrationModal = new bootstrap.Modal(
+    document.getElementById("registrationModal")
+  );
+
+  registerUserButton.addEventListener("click", () => {
+    const name = document.getElementById("registrationName").value;
+    const dob = document.getElementById("registrationDOB").value;
+    const email = document.getElementById("registrationEmail").value;
+    const password = document.getElementById("registrationPassword").value;
+
+    const newUser = {
+      name,
+      dob,
+      email,
+    };
+
+    // Отправляем данные на сервер
+    fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((userData) => {
+        // Обработка успешного ответа от сервера
+        console.log("Пользователь зарегистрирован:", userData);
+
+        // Создать учетную запись (login) в массиве login
+        const userLogin = {
+          email: userData.email,
+          password, // Здесь используется введенный пользователем пароль
+          userId: userData.id,
+        };
+
+        // Отправляем данные на сервер для добавления учетной записи
+        fetch("http://localhost:8000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userLogin),
+        })
+          .then((loginResponse) => loginResponse.json())
+          .then((loginData) => {
+            console.log("Учетная запись создана:", loginData);
+          })
+          .catch((loginError) => {
+            console.error("Ошибка создания учетной записи:", loginError);
+          });
+
+        // Закрыть модальное окно после успешной регистрации
+        registrationModal.hide();
+
+        // Отобразить имя пользователя
+        showUserName(userData.name);
+      })
+      .catch((error) => {
+        // Обработка ошибок при отправке данных на сервер
+        console.error("Ошибка регистрации:", error);
+      });
+  });
+
+  // Обработка события hidden.bs.modal для закрытия окна
+  registrationModal._element.addEventListener("hidden.bs.modal", () => {
+    // Сбросить содержимое registrationContainer при закрытии окна
+    registrationContainer.innerHTML = "";
+  });
+
+  // Функция для отображения имени пользователя
+  function showUserName(userName) {
+    registrationContainer.innerHTML = `<p>Привет, ${userName}!</p>`;
+  }
+});
+/* Регистрация Финиш */
+
+/* Вход старт */
+// Обработка входа пользователя
+document.addEventListener("DOMContentLoaded", () => {
+  // Ваш код для обработки входа пользователя
+  // ...
+
+  const loginUserButton = document.getElementById("loginUser");
+  const loginContainer = document.getElementById("loginContainer");
+  const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+
+  loginUserButton.addEventListener("click", () => {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const userCredentials = {
+      email,
+      password,
+    };
+
+    // Отправляем данные на сервер для аутентификации
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userCredentials),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Authentication failed");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Обработка успешной аутентификации
+        console.log("Вход выполнен успешно:", data);
+
+        // Сохранить информацию о пользователе (например, в localStorage)
+        localStorage.setItem("currentUser", JSON.stringify(data));
+
+        // Закрыть модальное окно после успешного входа
+        loginModal.hide();
+
+        // Отобразить имя пользователя
+        showUserName(data.name);
+      })
+      .catch((error) => {
+        // Обработка ошибок при отправке данных на сервер или неверных учетных данных
+        console.error("Ошибка входа:", error);
+
+        // Вывести сообщение об ошибке (например, "Неверные учетные данные")
+        alert("Неверные учетные данные");
+      });
+  });
+
+  // Обработка события hidden.bs.modal для закрытия окна
+  loginModal._element.addEventListener("hidden.bs.modal", () => {
+    // Сбросить содержимое loginContainer при закрытии окна
+    loginContainer.innerHTML = "";
+  });
+
+  // Функция для отображения имени пользователя
+  function showUserName(userName) {
+    loginContainer.innerHTML = `<p>Привет, ${userName}!</p>`;
+  }
+});
+/* Вход финиш */
+
 btnAdd.addEventListener("click", () => {
   if (
     !inpBrand.value.trim() ||
@@ -64,6 +216,8 @@ async function readPhones() {
             <span>${elem.phonePrice}</span>
             <button class="btn btn-outline-danger btnDelete" id="${elem.id}">Удалить</button>
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-warning btnEdit" id="${elem.id}">Редактировать</button>
+            <button class="btn btn-outline-info btnDetails" id="${elem.id}">Детали</button>
+            <button class="btn btn-outline-success btnAddToCart" id="${elem.id}">Добавить в корзину</button>
         </div>
     </div>
     `;
@@ -123,6 +277,60 @@ function editPhone(editPhone, id) {
     body: JSON.stringify(editPhone),
   }).then(() => readPhones());
 }
+
+// ! ==================== Детальный обзор ======================
+
+document.addEventListener("click", (e) => {
+  let details_class = [...e.target.classList];
+  if (details_class.includes("btnDetails")) {
+    let id = e.target.id;
+    fetch(`${API}/${id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // Здесь вы можете заполнить модальное окно детальной информацией
+        // Пример:
+        document.getElementById("myModal").style.display = "block";
+        document.querySelector("#myModal h2").innerText = data.phoneBrand;
+
+        // Создаем элемент изображения и устанавливаем его атрибут src
+        let imgElement = document.createElement("img");
+        imgElement.src = data.phoneImg;
+        imgElement.style.maxWidth = "200px";
+        imgElement.style.height = "auto";
+
+        // Получаем элемент, куда добавим изображение, и очищаем его
+        let imgContainer = document.getElementById("myModalImageContainer");
+        imgContainer.innerHTML = "";
+
+        // Добавляем изображение в контейнер внутри модального окна
+        imgContainer.appendChild(imgElement);
+
+        // Остальные данные (модель и цена)
+        document.querySelector(
+          "#myModal p"
+        ).innerText = `Модель: ${data.phoneModel}\nЦена: ${data.phonePrice}`;
+      });
+  }
+});
+
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+
+// Закрывает модальное окно
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+// Закрывает модальное окно, если пользователь кликнул вне его
+window.onclick = function (event) {
+  var modal = document.getElementById("myModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
 // ! ==========================SEARCH===============================
 inpSearch.addEventListener("input", (e) => {
   searchValue = e.target.value.trim();
@@ -150,61 +358,4 @@ nextBtn.addEventListener("click", () => {
   if (currentPage >= countPage) return;
   currentPage++;
   readPhones();
-});
-/* Регистрация */
-document.addEventListener("DOMContentLoaded", () => {
-  const registerUserButton = document.getElementById("registerUser");
-  const registrationContainer = document.getElementById(
-    "registrationContainer"
-  );
-  const registrationModal = new bootstrap.Modal(
-    document.getElementById("registrationModal")
-  );
-
-  registerUserButton.addEventListener("click", () => {
-    const name = document.getElementById("registrationName").value;
-    const dob = document.getElementById("registrationDOB").value;
-    const email = document.getElementById("registrationEmail").value;
-
-    const newUser = {
-      name,
-      dob,
-      email,
-    };
-
-    // Отправляем данные на сервер
-    fetch("http://localhost:8000/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Обработка успешного ответа от сервера
-        console.log("Пользователь зарегистрирован:", data);
-
-        // Закрыть модальное окно после успешной регистрации
-        registrationModal.hide();
-
-        // Отобразить имя пользователя
-        showUserName(data.name);
-      })
-      .catch((error) => {
-        // Обработка ошибок при отправке данных на сервер
-        console.error("Ошибка регистрации:", error);
-      });
-  });
-
-  // Обработка события hidden.bs.modal для закрытия окна
-  registrationModal._element.addEventListener("hidden.bs.modal", () => {
-    // Сбросить содержимое registrationContainer при закрытии окна
-    registrationContainer.innerHTML = "";
-  });
-
-  // Функция для отображения имени пользователя
-  function showUserName(userName) {
-    registrationContainer.innerHTML = `<p>Привет, ${userName}!</p>`;
-  }
 });

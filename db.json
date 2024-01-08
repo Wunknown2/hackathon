@@ -11,8 +11,16 @@
   "users": [
     {
       "name": "Шабдан",
-      "dob": "1999-10-06",
+      "dob": "1999-10-05",
       "email": "wunknown2@gmail.com",
+      "id": 1
+    }
+  ],
+  "login": [
+    {
+      "email": "wunknown2@gmail.com",
+      "password": "Wabdan1108",
+      "userId": 1,
       "id": 1
     }
   ]
