@@ -1,0 +1,40 @@
+{
+  "phones": [
+    {
+      "phoneBrand": "12",
+      "phoneModel": "12",
+      "phoneImg": "12",
+      "phonePrice": "12",
+      "id": 1
+    },
+    {
+      "phoneBrand": "12",
+      "phoneModel": "12",
+      "phoneImg": "12",
+      "phonePrice": "12",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "name": "Wabdan",
+      "dob": "1999-10-10",
+      "email": "wunknown2@gmail.com",
+      "id": 3
+    },
+    {
+      "name": "",
+      "dob": "",
+      "email": "",
+      "id": 4
+    }
+  ],
+  "login": [
+    {
+      "email": "",
+      "password": "",
+      "userId": 4,
+      "id": 1
+    }
+  ]
+}

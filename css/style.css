@@ -1,0 +1,244 @@
+.accordion-header {
+  margin-top: 50px;
+}
+/* Стили для цвета фона и текста добавленных товаров */
+.cardPhone {
+  background-color: #8b0000; /* Темно-красный цвет */
+  border: 1px solid #8b0000; /* Темно-красный цвет */
+  border-radius: 20px;
+  color: #fff; /* Белый цвет текста */
+}
+
+.cardPhone:hover {
+  background-color: #800000; /* Темно-красный цвет при наведении */
+  border: 1px solid #800000; /* Темно-красный цвет при наведении */
+}
+
+.cardPhone:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
+  box-shadow: 0px 0px 23px 0px rgba(34, 60, 80, 0.4);
+}
+/* Reset some default styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+/* Регистрация */
+.btn-registration {
+  background-color: #1a87fc;
+  border-color: #007bff;
+}
+
+.btn-registration:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+/* Вход */
+.btn-login {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-login:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+/* Регистрация финиш */
+/* Global styles */
+body {
+  font-family: "Arial", sans-serif;
+  background: url("https://images.wallpaperscraft.ru/image/single/chernyj_svet_temnyj_73356_1920x1080.jpg")
+    center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  color: #fff; /* Цвет текста для контраста */
+}
+
+.container {
+  max-width: 1200px;
+  height: 450px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #343a40;
+}
+#inpSearch {
+  height: 38px; /* Выберите желаемую высоту */
+}
+#btnOpenForm,
+#btnAdd,
+#prevBtn,
+#nextBtn {
+  background-color: #8b0000; /* Темно-красный цвет */
+  border-color: #8b0000; /* Темно-красный цвет */
+  color: #ffffff; /* Белый цвет текста */
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+#btnOpenForm:hover,
+#btnAdd:hover,
+#prevBtn:hover,
+#nextBtn:hover {
+  background-color: #800000; /* Темно-красный цвет при наведении */
+  border-color: #800000; /* Темно-красный цвет при наведении */
+}
+/* Стили для кнопки поиска */
+.btn-success {
+  height: 38px; /* Выберите желаемую высоту */
+}
+.navbar-brand {
+  color: #0051ff;
+  font-weight: bold;
+}
+.navbar-nav a:hover {
+  background-color: #555; /* Цвет подсветки */
+  color: #fff; /* Цвет текста при подсветке */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета подсветки */
+}
+.navbar-nav a {
+  color: #ffffff !important;
+}
+
+/* Main section styles */
+#sectionPhones {
+  margin-top: 20px;
+}
+
+/* Accordion styles */
+.accordion-button {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+/* Form styles */
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+/* Modal styles */
+.modal-header {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.modal-body input {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  color: #007bff;
+}
+
+.footer {
+  background: #000;
+  width: 100%;
+  padding-bottom: 60px;
+}
+.footer-item {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+}
+.footer-item-title h3 {
+  color: #fff;
+  /* Heading */
+  font-family: Comfortaa;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 70px;
+  margin-top: 40px;
+}
+.footer-item-title p {
+  color: #fff;
+  width: 418px;
+  /* Paragraph */
+  font-family: Comfortaa;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  width: 418px;
+  height: 283px;
+  flex-shrink: 0;
+}
+.footer-item-titlee h3 {
+  color: #fff;
+  /* Heading */
+  font-family: Comfortaa;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 40px;
+  margin-bottom: 70px;
+}
+.footer hr {
+  width: 1300px;
+  height: 2px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+.footer-copy h3 {
+  color: #fff;
+  font-family: Comfortaa;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+.footer-item-title div {
+  color: #fff;
+  font-family: Comfortaa;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  text-decoration-line: underline;
+  margin-bottom: 18px;
+}
+.footer-item-titlee div {
+  color: #fff;
+  font-family: Comfortaa;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  margin-bottom: 18px;
+  text-decoration: none;
+}
+/* Responsive styles */
+@media (max-width: 767px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+}
